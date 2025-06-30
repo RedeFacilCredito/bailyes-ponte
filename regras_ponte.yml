@@ -1,0 +1,15 @@
+http:
+  routers:
+    ponte-server-router:
+      rule: "Host(`rfchat.redefacilconsultoria.com`) && PathPrefix(`/webhook/comando`)"
+      service: "ponte-server-service"
+      entryPoints:
+        - "websecure"
+      tls:
+        certResolver: "letsencrypt"
+
+  services:
+    ponte-server-service:
+      loadBalancer:
+        servers:
+          - url: "http://172.17.0.1:3001"
